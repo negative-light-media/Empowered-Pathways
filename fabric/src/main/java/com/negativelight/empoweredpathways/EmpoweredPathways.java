@@ -1,8 +1,8 @@
-package com.example.examplemod;
+package com.negativelight.empoweredpathways;
 
 import net.fabricmc.api.ModInitializer;
 
-public class ExampleMod implements ModInitializer {
+public class EmpoweredPathways implements ModInitializer {
     
     @Override
     public void onInitialize() {

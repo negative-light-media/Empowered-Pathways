@@ -1,6 +1,6 @@
-package com.example.examplemod.platform;
+package com.negativelight.empoweredpathways.platform;
 
-import com.example.examplemod.platform.services.IPlatformHelper;
+import com.negativelight.empoweredpathways.platform.services.IPlatformHelper;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 

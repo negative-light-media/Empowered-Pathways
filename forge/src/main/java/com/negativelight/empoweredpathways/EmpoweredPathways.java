@@ -1,11 +1,11 @@
-package com.example.examplemod;
+package com.negativelight.empoweredpathways;
 
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(Constants.MOD_ID)
-public class ExampleMod {
+public class EmpoweredPathways {
     
-    public ExampleMod() {
+    public EmpoweredPathways() {
     
         // This method is invoked by the Forge mod loader when it is ready
         // to load your mod. You can access Forge and Common code in this
