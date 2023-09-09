@@ -1,9 +1,9 @@
 {
     "schemaVersion": 1,
-    "id": "empoweredpathways",
-    "version": "${version}",
+    "id": "${mod_id}",
+    "version": "${mod_version}",
     "name": "${mod_name}",
-    "description": "This is an example description! Tell everyone what your mod is about!",
+    "description": "Some Text Here",
     "authors": [
         "${mod_author}"
     ],
@@ -16,17 +16,17 @@
     "environment": "*",
     "entrypoints": {
         "main": [
-          "com.negativelight.empoweredpathways.EmpoweredPathways"
+          "${group}.${mod_name}"
         ]
     },
     "mixins": [
-        "empoweredpathways.mixins.json",
-        "empoweredpathways.fabric.mixins.json"
+        "${mod_id}.mixins.json",
+        "${mod_id}.fabric.mixins.json"
     ],
     "depends": {
         "fabricloader": ">=0.14",
         "fabric": "*",
-        "minecraft": "1.20",
+        "minecraft": "${minecraft_version}",
         "java": ">=17"
     },
     "suggests": {

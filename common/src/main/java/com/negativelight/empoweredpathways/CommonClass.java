@@ -1,8 +1,18 @@
 package com.negativelight.empoweredpathways;
 
+import com.negativelight.empoweredpathways.block.ModBlocks;
+import com.negativelight.empoweredpathways.item.ModItems;
 import com.negativelight.empoweredpathways.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.network.chat.Component;
+
+import java.awt.*;
+import java.util.List;
+
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
@@ -14,6 +24,10 @@ public class CommonClass {
     // write the majority of your code here and load it from your loader specific projects. This example has some
     // code that gets invoked by the entry point of the loader specific projects.
     public static void init() {
+        Constants.LOG.info("Loading Mod Items");
+        ModItems.loadClass();
+        Constants.LOG.info("Loading Mod Blocks");
+        ModBlocks.loadClass();
 
         Constants.LOG.info("Hello from Common init on {}! we are currently in a {} environment!", Services.PLATFORM.getPlatformName(), Services.PLATFORM.getEnvironmentName());
         Constants.LOG.info("The ID for diamonds is {}", BuiltInRegistries.ITEM.getKey(Items.DIAMOND));
@@ -27,5 +41,8 @@ public class CommonClass {
 
             Constants.LOG.info("Hello to empoweredpathways");
         }
+
     }
+
+
 }
