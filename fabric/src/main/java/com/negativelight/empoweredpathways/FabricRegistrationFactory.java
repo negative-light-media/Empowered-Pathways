@@ -52,6 +52,7 @@ public class FabricRegistrationFactory implements RegistrationProvider.Factory {
         public <I extends T> RegistryObject<I> register(String name, Supplier<? extends I> supplier) {
             final var rl = new ResourceLocation(modId, name);
             final var obj = Registry.register(registry, rl, supplier.get());
+
             final var ro = new RegistryObject<I>() {
                 final ResourceKey<I> key = ResourceKey.create((ResourceKey<? extends Registry<I>>) registry.key(), rl);
 
@@ -67,6 +68,7 @@ public class FabricRegistrationFactory implements RegistrationProvider.Factory {
 
                 @Override
                 public I get() {
+                    Constants.LOG.info("OBJ TYPE IN REGISTRY OBJECT:: " + obj.getClass().getTypeName());
                     return obj;
                 }
 
