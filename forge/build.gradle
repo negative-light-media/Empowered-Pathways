@@ -5,8 +5,9 @@ plugins {
     id 'org.spongepowered.mixin'
 }
 
-archivesBaseName = "${mod_name}-forge"
-version = "${minecraft_version}-${mod_version}"
+base {
+    archivesName = "${mod_name}-forge-${minecraft_version}"
+}
 
 mixin {
     add(sourceSets.main, "${mod_id}.refmap.json")
@@ -19,6 +20,9 @@ mixin {
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
+
+    copyIdeResources = true
+
     if (file('src/main/resources/META-INF/accesstransformer.cfg').exists()) {
         accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     }
@@ -99,21 +103,8 @@ publishing {
 
             artifactId project.archivesBaseName
             version project.version
-
-            artifact jar
-            artifact sourcesJar
-
-            pom.withXml {
-                def depsNode = asNode().appendNode('dependencies')
-                [this.configurations.library].each {
-                    it.allDependencies.each {
-                        def depNode = depsNode.appendNode('dependency')
-                        depNode.appendNode('groupId', it.group)
-                        depNode.appendNode('artifactId', it.name)
-                        depNode.appendNode('version', it.version)
-                    }
-                }
-            }
+            from components.java
+            fg.component(it)
         }
     }
     repositories {

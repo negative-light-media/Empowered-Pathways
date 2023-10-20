@@ -1,11 +1,8 @@
 package com.negativelight.empoweredpathways;
 
-import com.negativelight.empoweredpathways.block.ModBlocks;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod(Constants.MOD_ID)

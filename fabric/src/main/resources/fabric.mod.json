@@ -1,9 +1,9 @@
 {
     "schemaVersion": 1,
-    "id": "${mod_id}",
-    "version": "${mod_version}",
+    "id": "mod_id",
+    "version": "${version}",
     "name": "${mod_name}",
-    "description": "Some Text Here",
+    "description": "${description}",
     "authors": [
         "${mod_author}"
     ],
@@ -11,12 +11,12 @@
         "homepage": "https://fabricmc.net/",
         "sources": "https://github.com/FabricMC/fabric-example-mod"
     },
-    "license": "All Rights Reserved",
+    "license": "${license}",
     "icon": "",
     "environment": "*",
     "entrypoints": {
         "main": [
-          "${group}.${mod_name}"
+          "com.negativelight.empoweredpathways.EmpoweredPathways"
         ]
     },
     "mixins": [

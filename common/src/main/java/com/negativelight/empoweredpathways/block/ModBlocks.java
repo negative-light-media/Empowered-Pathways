@@ -1,15 +1,10 @@
 package com.negativelight.empoweredpathways.block;
 
 import com.negativelight.empoweredpathways.Constants;
-import com.negativelight.empoweredpathways.item.ModItems;
-import com.negativelight.empoweredpathways.registration.RegistrationProvider;
 import com.negativelight.empoweredpathways.registration.RegistryObject;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 
 import java.util.function.Supplier;
