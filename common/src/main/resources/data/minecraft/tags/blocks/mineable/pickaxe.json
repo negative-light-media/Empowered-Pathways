@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "empoweredpathways:stonework_block",
+    "empoweredpathways:reinforced_stonework_block",
+    "empoweredpathways:infused_stonework_path",
+    "empoweredpathways:stonework_path",
+    "empoweredpathways:reinforced_stonework_path",
+    "empoweredpathways:infused_stonework_block"
+  ]
+}

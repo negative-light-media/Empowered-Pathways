@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "empoweredpathways:block/infused_stonework_block"
+  }
+}
