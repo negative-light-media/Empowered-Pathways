@@ -1,3 +1,4 @@
+//Crafting Recipe for Infused Stonework Blocks
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
