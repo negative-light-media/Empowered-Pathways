@@ -1,19 +1,20 @@
+//Crafting Recipe for Infused Stonework Blocks
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "###",
-    "X",
-    "X"
+    "#X#",
+    "###"
   ],
   "key": {
     "#": {
-      "item": "minecraft:iron_nugget"
+      "item": "minecraft:glow_lichen"
     },
     "X": {
       "item": "empoweredpathways:stonework_block"
     }
   },
   "result": {
-    "item": "empoweredpathways:reinforced_stonework_block"
+    "item": "empoweredpathways:infused_stonework_block"
   }
 }
