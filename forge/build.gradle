@@ -97,19 +97,76 @@ processResources {
 
 jar.finalizedBy('reobfJar')
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-            fg.component(it)
-        }
+task processDocs(type: Copy) {
+    // update docs
+    from(file("$rootDir/doc/")) {
+        include '*.html'
+        expand 'version': project.version,
+                'date': getDate(),
+                'mcversion': project.minecraft_version,
+                'loaderversion': project.forge_version,
+                'loadername': "Forge"
     }
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
+    into "$project.buildDir/doc"
+}
+
+jar {
+    dependsOn 'processDocs'
+    manifest {
+        attributes([
+                "Specification-Title"     : project.name,
+                "Specification-Vendor"    : project.group,
+                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project.jar.archiveVersion,
+                "Implementation-Vendor"   : project.group,
+                "Implementation-Timestamp": getDate(),
+        ])
+    }
+}
+
+// Automated upload to CurseForge for the win!
+if (!project.hasProperty("curseForgeApiKey")) {
+    ext.curseForgeApiKey = project.findProperty("curseforge_api_key") ?: "notset"
+}
+if (!project.hasProperty("modrinthApiKey")) {
+    ext.modrinthApiKey = project.findProperty("modrinth_api_key") ?: "notset"
+}
+
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+
+    apiToken = "${curseForgeApiKey}"
+    def mainFile = upload(curseforge_project_id, jar)
+    mainFile.displayName = "${archivesBaseName}-${version}"
+    mainFile.releaseType = release_type
+    mainFile.addModLoader("Forge")
+    mainFile.addModLoader("NeoForge")
+    mainFile.addJavaVersion("Java 17")
+    mainFile.addGameVersion("${project.minecraft_version}")
+    mainFile.changelogType = "html"
+    mainFile.changelog = file("$project.buildDir/doc/changelog.html")
+}
+
+tasks.modrinth.dependsOn(tasks.build)
+
+modrinth {
+    token = "${modrinthApiKey}"
+    projectId = modrinth_project_id
+    versionNumber = "${version}"
+    versionName = "${archivesBaseName}-${version}"
+    versionType = release_type
+    uploadFile = jar
+    gameVersions = ["${project.minecraft_version}"]
+    loaders = ["forge", "neoforge"]
+    changelog = file("$project.buildDir/doc/changelog.html").exists() ? file("$project.buildDir/doc/changelog.html").text : null
+}
+
+// Ensure build is done prior to cursegradle tasks
+project.afterEvaluate {
+    project.tasks.findAll { task ->
+        (task.name.startsWith('curseforge') || task.name.startsWith('modrinth'))
+                && (task.name != 'curseforge' || task.name != 'modrinth')
+    }.each { projectTask ->
+        projectTask.dependsOn build
     }
 }
