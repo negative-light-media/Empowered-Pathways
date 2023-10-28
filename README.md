@@ -1,3 +1,5 @@
+[![pr-ci](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/pr-ci.yml/badge.svg)](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/pr-ci.yml)[![publish-curseforge](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/tag_cf_publish.yml/badge.svg)](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/tag_cf_publish.yml)[![publish-modrinth](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/tag_md_publish.yml/badge.svg)](https://github.com/negative-light-media/Empowered-Pathways/actions/workflows/tag_md_publish.yml)
+
 # Empowered Pathways
 
 The purpse of this mod is to  provide fun path creation tools. It is intended to be simpmlistic to use and fun to play with.
