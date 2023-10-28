@@ -57,7 +57,18 @@ processResources {
     from project(":common").sourceSets.main.resources
 }
 
-
+task processDocs(type: Copy) {
+    // update docs
+    from(file("$rootDir/doc/")) {
+        include '*.html'
+        expand 'version': project.version,
+                'date': getDate(),
+                'mcversion': project.minecraft_version,
+                'loaderversion': project.fabric_version,
+                'loadername': "Fabric"
+    }
+    into "$project.buildDir/doc"
+}
 
 jar {
     dependsOn 'processDocs'
