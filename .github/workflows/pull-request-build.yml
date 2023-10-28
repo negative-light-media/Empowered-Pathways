@@ -1,7 +1,7 @@
 # Ensures that the code builds on a pull request
 # Special thanks to @mysticdrew on github and the multiloader discord
 
-name: pr-ci
+name: pull-request-build
 
 on:
   pull_request:
