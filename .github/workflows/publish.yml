@@ -33,9 +33,6 @@ jobs:
   # Create Curseforge Release
   release_curseforge:
     name: Release - Curseforge
-    needs:
-      - create_change_log
-      - build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -67,9 +64,6 @@ jobs:
   # Create Modrinth Release
   release_modrinth:
     name: Release - Modrinth
-    needs:
-      - create_change_log
-      - build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
