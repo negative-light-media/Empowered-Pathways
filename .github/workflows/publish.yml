@@ -39,7 +39,7 @@ jobs:
           echo ${{ steps.changelog.outputs.changelog }} > fabric/build/changelog.md
           echo ${{ steps.changelog.outputs.changelog }} > forge/build/changelog.md
 
-      - name: Gradle Build
+      - name: Curseforge Publish
         run: /bin/sh ./gradlew publishCurseForge -Pcurseforge_api_key=${{ secrets.CURSEFORGE_KEY }}
 
   # Create Modrinth Release
