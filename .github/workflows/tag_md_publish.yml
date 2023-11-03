@@ -1,11 +1,11 @@
 # Publish code to Moderinth on any tagged release
 # Special thanks to @mysticdrew on github and the multiloader discord
-name: publish-modrinth
+name: publish.yml-modrinth
 
 on:
   push:
     tags:
-      - '*'
+      - '*____'
 
 jobs:
   build:

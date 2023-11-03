@@ -1,12 +1,12 @@
 # Publish Jar files to Curse Forge on any tagged release
 # Special thanks to @mysticdrew on github and the multiloader discord
 
-name: publish-curseforge
+name: publish.yml-curseforge
 
 on:
   push:
     tags:
-      - '*'
+      - '*____'
 
 jobs:
   build:
