@@ -1,0 +1,100 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+-1.[0-9]+'
+
+jobs:
+  # Create Github Release
+  release_github:
+    name: Release - Github
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Generate Changlog
+        id: changlog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          writeToFile: false
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          allowUpdates: true
+          draft: false
+          makeLatest: true
+          name: ${{ github.ref_name }}
+          body: ${{ steps.changelog.outputs.changes }}
+          token: ${{ github.token }}
+
+  # Create Curseforge Release
+  release_curseforge:
+    name: Release - Curseforge
+    needs:
+      - create_change_log
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - name: Generate Changlog
+        id: changlog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ github.token }}
+          tag: ${{ github.ref_name }}
+          writeToFile: false
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Place Changlog in build directory
+        run: |
+          echo ${{ steps.changelog.outputs.changes }} > /fabric/build/doc/changlog.md
+          echo ${{ steps.changelog.outputs.changes }} > /forge/build/doc/changlog.md
+
+      - name: Gradle Build
+        run: /bin/sh ./gradlew publishCurseForge -Pcurseforge_api_key=${{ secrets.CURSEFORGE_KEY }}
+
+  # Create Modrinth Release
+  release_modrinth:
+    name: Release - Modrinth
+    needs:
+      - create_change_log
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          cache: gradle
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Gradle Build
+        run: /bin/sh ./gradlew build
+
+      - name: Place Changlog in build directory
+        run: |
+          echo "test" > /path/to/build/dir/doc/changlog.md
+          echo "tes" > path/to/build/dir/doc/changlog.md
+
+      - name: Modrinth Publish
+        run: /bin/sh ./gradlew modrinth -Pmodrinth_api_key=${{ secrets.MODRINTH_KEY }}
