@@ -16,21 +16,19 @@ jobs:
 
       - name: Generate Changlog
         id: changlog
-        uses: requarks/changelog-action@v1
+        uses: loopwerk/tag-changelog@v1
         with:
           token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
-          writeToFile: false
 
       - name: Create Release
-        uses: ncipollo/release-action@v1.12.0
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          allowUpdates: true
-          draft: false
-          makeLatest: true
-          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{github.ref}}
           body: ${{ steps.changelog.outputs.changes }}
-          token: ${{ github.token }}
+
 
   # Create Curseforge Release
   release_curseforge:
@@ -51,19 +49,17 @@ jobs:
 
       - name: Generate Changlog
         id: changlog
-        uses: requarks/changelog-action@v1
+        uses: loopwerk/tag-changelog@v1
         with:
           token: ${{ github.token }}
-          tag: ${{ github.ref_name }}
-          writeToFile: false
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
       - name: Place Changlog in build directory
         run: |
-          echo ${{ steps.changelog.outputs.changes }} > /fabric/build/doc/changlog.md
-          echo ${{ steps.changelog.outputs.changes }} > /forge/build/doc/changlog.md
+          echo ${{ steps.changelog.outputs.changelog }} > /fabric/build/doc/changlog.md
+          echo ${{ steps.changelog.outputs.changelog }} > /forge/build/doc/changlog.md
 
       - name: Gradle Build
         run: /bin/sh ./gradlew publishCurseForge -Pcurseforge_api_key=${{ secrets.CURSEFORGE_KEY }}
@@ -85,6 +81,12 @@ jobs:
           distribution: temurin
           cache: gradle
 
+      - name: Generate Changlog
+        id: changlog
+        uses: loopwerk/tag-changelog@v1
+        with:
+          token: ${{ github.token }}
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
 
@@ -93,8 +95,8 @@ jobs:
 
       - name: Place Changlog in build directory
         run: |
-          echo "test" > /path/to/build/dir/doc/changlog.md
-          echo "tes" > path/to/build/dir/doc/changlog.md
+          echo ${{ steps.changelog.outputs.changelog }} > /fabric/build/doc/changlog.md
+          echo ${{ steps.changelog.outputs.changelog }} > /forge/build/doc/changlog.md
 
       - name: Modrinth Publish
         run: /bin/sh ./gradlew modrinth -Pmodrinth_api_key=${{ secrets.MODRINTH_KEY }}
