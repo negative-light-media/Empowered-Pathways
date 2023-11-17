@@ -1,22 +1,52 @@
 package com.negativelight.empoweredpathways;
 
+
+import com.negativelight.empoweredpathways.block.ModBlocks;
+import com.negativelight.empoweredpathways.item.ModItems;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
 @Mod(Constants.MOD_ID)
 public class EmpoweredPathways {
-    
-    public EmpoweredPathways() {
-    
-        // This method is invoked by the Forge mod loader when it is ready
-        // to load your mod. You can access Forge and Common code in this
+
+    /**
+     * NeoForge Mod Contributor
+     * @param eventBus - The NeoForge Event bug object
+     */
+    public EmpoweredPathways(IEventBus eventBus) {
+
+        // This method is invoked by the NeoForge mod loader when it is ready
+        // to load your mod. You can access NeoForge and Common code in this
         // project.
 
-        // Use Forge to bootstrap the Common mod.
+
+        // Use NeoForge to bootstrap the Common mod.
         Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
 
+        NeoForge.EVENT_BUS.register(this);
+        eventBus.addListener(this::addCreative);
 
-        //MinecraftForge.EVENT_BUS.addListener(this::onItemTooltip);
+    }
+
+    /**
+     * Add Items to the Minecraft Creative Mod Tabs
+     * @param event - triggering Event
+     */
+    public void addCreative(BuildCreativeModeTabContentsEvent event) {
+        Constants.LOG.info("Adding to Creative Mode Tab " + event.getTabKey());
+        if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
+            event.accept(ModBlocks.STONEWORK_BLOCK);
+            event.accept(ModBlocks.INFUSED_STONEWORK_BLOCK);
+            event.accept(ModBlocks.REINFORCED_STONEWORK_BLOCK);
+        }
+
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.accept(ModItems.GRADER_TOOL);
+        }
     }
 
 }
