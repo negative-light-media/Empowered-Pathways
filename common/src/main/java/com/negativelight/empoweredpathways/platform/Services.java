@@ -1,6 +1,5 @@
 package com.negativelight.empoweredpathways.platform;
 
-import com.negativelight.empoweredpathways.Constants;
 import com.negativelight.empoweredpathways.platform.services.IPlatformHelper;
 
 import java.util.ServiceLoader;
@@ -8,6 +7,10 @@ import java.util.ServiceLoader;
 // Service loaders are a built-in Java feature that allow us to locate implementations of an interface that vary from one
 // environment to another. In the context of MultiLoader we use this feature to access a mock API in the common code that
 // is swapped out for the platform specific implementation at runtime.
+
+/**
+ * Service Loader to pull in and share code between Mod Loaders
+ */
 public class Services {
 
     // In this example we provide a platform helper which provides information about what platform the mod is running on.
@@ -19,12 +22,19 @@ public class Services {
     // manually by including a text file in META-INF/services named with the fully qualified class name of the service.
     // Inside the file you should write the fully qualified class name of the implementation to load for the platform. For
     // example our file on Forge points to ForgePlatformHelper while Fabric points to FabricPlatformHelper.
+
+    /**
+     * Load operation for a class
+     * @param clazz class to load
+     * @return Loaded Service
+     * @param <T> Type of the class to be loaded
+     */
     public static <T> T load(Class<T> clazz) {
 
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
+        //Constants.LOG.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

@@ -1,6 +1,6 @@
 {
     "schemaVersion": 1,
-    "id": "mod_id",
+    "id": "${mod_id}",
     "version": "${version}",
     "name": "${mod_name}",
     "description": "${description}",
@@ -20,7 +20,6 @@
         ]
     },
     "mixins": [
-
     ],
     "depends": {
         "fabricloader": ">=0.14",

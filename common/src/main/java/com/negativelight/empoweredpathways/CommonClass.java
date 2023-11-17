@@ -4,17 +4,7 @@ import com.negativelight.empoweredpathways.block.ModBlocks;
 import com.negativelight.empoweredpathways.item.ModItems;
 import com.negativelight.empoweredpathways.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.network.chat.Component;
-
-
-
-import java.awt.*;
-import java.util.List;
-
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
 // import and access the vanilla codebase, libraries used by vanilla, and optionally third party libraries that provide
