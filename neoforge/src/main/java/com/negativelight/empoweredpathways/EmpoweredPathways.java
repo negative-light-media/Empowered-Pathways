@@ -5,6 +5,7 @@ import com.negativelight.empoweredpathways.block.ModBlocks;
 import com.negativelight.empoweredpathways.item.ModItems;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -36,6 +37,7 @@ public class EmpoweredPathways {
      * Add Items to the Minecraft Creative Mod Tabs
      * @param event - triggering Event
      */
+    @SubscribeEvent
     public void addCreative(BuildCreativeModeTabContentsEvent event) {
         Constants.LOG.info("Adding to Creative Mode Tab " + event.getTabKey());
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
