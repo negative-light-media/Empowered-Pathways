@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+
     //Publication Stuffs
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'com.modrinth.minotaur' version '2.+'
@@ -13,8 +14,8 @@ base {
 mixin {
     add(sourceSets.main, "${mod_id}.refmap.json")
 
-    config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
+    //config("${mod_id}.mixins.json")
+    //config("${mod_id}.forge.mixins.json")
 }
 
 minecraft {
@@ -40,6 +41,7 @@ minecraft {
                 modClientRun {
                     source sourceSets.main
                     source project(":common").sourceSets.main
+
                 }
             }
         }
@@ -91,6 +93,12 @@ tasks.withType(Javadoc).configureEach {
 }
 tasks.named("sourcesJar", Jar) {
     from(project(":common").sourceSets.main.allSource)
+}
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
 
 processResources {
