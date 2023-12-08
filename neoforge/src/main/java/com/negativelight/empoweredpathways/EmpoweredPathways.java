@@ -41,13 +41,13 @@ public class EmpoweredPathways {
     public void addCreative(BuildCreativeModeTabContentsEvent event) {
         Constants.LOG.info("Adding to Creative Mode Tab " + event.getTabKey());
         if(event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ModBlocks.STONEWORK_BLOCK);
-            event.accept(ModBlocks.INFUSED_STONEWORK_BLOCK);
-            event.accept(ModBlocks.REINFORCED_STONEWORK_BLOCK);
+            event.accept(ModBlocks.STONEWORK_BLOCK.get());
+            event.accept(ModBlocks.INFUSED_STONEWORK_BLOCK.get());
+            event.accept(ModBlocks.REINFORCED_STONEWORK_BLOCK.get());
         }
 
         if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ModItems.GRADER_TOOL);
+            event.accept(ModItems.GRADER_TOOL.get());
         }
     }
 
